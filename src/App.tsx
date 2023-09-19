@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Listing from './components/Listing';
 import data from './data/etsy.json';
@@ -24,12 +23,21 @@ for (const datum of data) {
     quantity,
   });
 }
-
-const list = actualData.filter(item => item.MainImage !== undefined);
+const list= actualData.filter(function (el){
+  return el.listing_id !== undefined &&
+        el.url !== undefined &&
+        el.MainImage !== undefined &&
+        el.MainImage.url_570xN !== undefined &&
+        el.title !== undefined &&
+        el.currency_code !== undefined &&
+        el.price !== undefined &&
+        el.quantity !== undefined;
+});
 
 function App() {
   return (
     <div className="App">
+     {console.log(typeof(list))}
       <Listing items={list}/>
      
     </div>
@@ -37,4 +45,3 @@ function App() {
 }
 
 export default App;
-//

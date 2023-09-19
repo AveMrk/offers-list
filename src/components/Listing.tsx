@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import PropTypes from 'prop-types';
 
 interface IList {
   listing_id: number;
@@ -12,6 +13,39 @@ interface IList {
 interface MessageProps {
   items: IList[];
 }
+type F = (num: number) => string;
+const showLevel: F= (quantity: number) => {
+  let level = "level-";
+  if(quantity<=10){
+    level += "low";
+  } else if(quantity<=20){
+    level += "medium"
+  } else {
+    level += "high"
+  }
+  return level
+}
+
+export default function Listing({ items }: MessageProps) {
+  return (
+    <div className="item-list">
+      {items.map((item, key) => (
+        <div className="item">
+          <div className="item-image">
+            <a href={item.url}></a>
+          </div>
+          <div className="item-details">
+      <p className="item-title">{item.title}</p>
+      <p className="item-price">{item.price}</p>
+      <p className={"item-quantity "+ showLevel(item.quantity)}>{item.quantity}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+/*
+
 
 type F = (num: number) => ReactNode;
 export default function Listing({ items }:MessageProps) {
@@ -65,4 +99,4 @@ export default function Listing({ items }:MessageProps) {
       </div>
     </div>
   );
-}
+}*/
